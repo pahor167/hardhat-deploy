@@ -614,11 +614,11 @@ export function addHelpers(
     );
     await setupGasPrice(unsignedTx);
     await setupNonce(from, unsignedTx);
- 
+
     // Temporary workaround for https://github.com/ethers-io/ethers.js/issues/2078
     // TODO: Remove me when LedgerSigner adds proper support for 1559 txns
     if (hardwareWallet === 'ledger') {
-      unsignedTx.type = 1
+      unsignedTx.type = 1;
     }
 
     if (unknown) {
@@ -1531,7 +1531,7 @@ Note that in this case, the contract deployment will not behave the same if depl
           proxy.address,
           '0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103'
         );
-        const currentOwner = getAddress(`0x${ownerStorage.substr(-40)}`);
+        // const currentOwner = getAddress(`0x${ownerStorage.substr(-40)}`);
 
         const oldProxy = proxy.abi.find(
           (frag: {name: string}) => frag.name === 'changeImplementation'
@@ -1540,16 +1540,16 @@ Note that in this case, the contract deployment will not behave the same if depl
           ? 'changeImplementation'
           : 'upgradeToAndCall';
 
-        if (currentOwner.toLowerCase() !== proxyAdmin.toLowerCase()) {
-          throw new Error(
-            `To change owner/admin, you need to call the proxy directly, it currently is ${currentOwner}`
-          );
-        }
-        if (currentOwner === AddressZero) {
-          throw new Error(
-            'The Proxy belongs to no-one. It cannot be upgraded anymore'
-          );
-        }
+        // if (currentOwner.toLowerCase() !== proxyAdmin.toLowerCase()) {
+        //   throw new Error(
+        //     `To change owner/admin, you need to call the proxy directly, it currently is ${currentOwner}`
+        //   );
+        // }
+        // if (currentOwner === AddressZero) {
+        //   throw new Error(
+        //     'The Proxy belongs to no-one. It cannot be upgraded anymore'
+        //   );
+        // }
 
         if (proxyAdminName) {
           if (oldProxy) {
@@ -1589,14 +1589,14 @@ Note that in this case, the contract deployment will not behave the same if depl
           ) {
             executeReceipt = await execute(
               name,
-              {...options, from: currentOwner},
+              {...options, from: proxyAdmin},
               'upgradeTo',
               implementation.address
             );
           } else {
             executeReceipt = await execute(
               name,
-              {...options, from: currentOwner},
+              {...options, from: proxyAdmin},
               changeImplementationMethod,
               implementation.address,
               data

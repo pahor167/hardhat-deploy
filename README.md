@@ -1,3 +1,9 @@
+This is a fork of hardhat-deploy with only change and which is not to check owner of the proxy while upgrading.
+
+More info can be found in following issue
+
+https://github.com/wighawag/hardhat-deploy/issues/146
+
 <h1> hardhat-deploy</h1>
 
 _A [Hardhat](https://hardhat.org) Plugin For Replicable Deployments And Easy Testing_
@@ -449,7 +455,7 @@ Later this task might instead pin the metadata to ipfs, so sourcify can automati
 #### **Options**
 
 `--contract-name <contract name>`: specify the contract's name you want to verify
-  
+
 `--endpoint <endpoint>`: specify the sourcify endpoint, default to https://sourcify.dev/server/
 
 `--write-failing-metadata`: if set and the sourcify task fails to verify, the metadata file will be written to disk, so you can more easily figure out what has gone wrong.
